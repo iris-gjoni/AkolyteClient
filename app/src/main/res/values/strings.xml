@@ -4,6 +4,7 @@
     <string name="homePageBackground">homePageBackground</string>
     <string name="this_is_iris_newest_app">This is Iris\' Newest App!!</string>
     <string name="title_activity_login">Sign in</string>
+    <string name="title_activity_payment">Payment</string>
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password</string>
     <string name="action_sign_in">Sign in or register</string>
@@ -13,4 +14,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="create_account">"Create Account"</string>
+    <string name="enter_amount">enter amount</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="make_a_payment">make a payment</string>
 </resources>

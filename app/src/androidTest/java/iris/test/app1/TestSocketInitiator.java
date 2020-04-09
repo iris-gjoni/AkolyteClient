@@ -13,7 +13,8 @@ public class TestSocketInitiator {
     @Test
     public void test() throws IOException {
         socketInitator.connect();
-        socketInitator.writeToEndpoint("RQ1.iris.hello");
+        socketInitator.setMessage("RQ1.iris.hello");
+        socketInitator.writeToEndpoint();
 
     }
 
