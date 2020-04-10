@@ -2,39 +2,52 @@ package iris.test.app1.server.connection;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
-import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.util.concurrent.Callable;
 
-public class SocketInitator implements Runnable {
 
-    private final String host = "localhost";
+public class SocketInitator implements Callable<String> {
+
+    private final String host = "192.168.0.8";
     private final int port = 1001;
     private SocketChannel socketChannel;
-    private final ByteBuffer byteBuffer = ByteBuffer.allocate(48);
+    private final ByteBuffer writeBuffer = ByteBuffer.allocate(1024);
+    private final ByteBuffer readBuffer = ByteBuffer.allocate(1024);
     public String message = "";
     public String response = "";
+
+    boolean waiting = true;
 
     public SocketInitator()  {
     }
 
     @Override
-    public void run(){
+    public String call(){
         try {
-            System.out.println("connect:"+connect());
-            System.out.println("writeToEndpoint:"+writeToEndpoint());
-            this.response = blockingReadFromEndpoint();
-            disconnect();
-        } catch (IOException e) {
+            if (connect()) {
+                writeToEndpoint();
+                this.response = blockingReadFromEndpoint();
+                disconnect();
+                return response;
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
+        return "failed logon";
     }
 
-    public boolean connect() throws IOException {
-        socketChannel = SocketChannel.open();
-        socketChannel.connect(new InetSocketAddress("192.168.0.8", 1001));
-        return socketChannel.isConnected();
+    public boolean connect()  {
+        try {
+            socketChannel = SocketChannel.open();
+            socketChannel.configureBlocking(false);
+            socketChannel.connect(new InetSocketAddress(host, port));
+            Thread.sleep(1000); // allow 1 seconds for connection
+            return socketChannel.finishConnect();
+        } catch (Exception e ){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public boolean disconnect() throws IOException {
@@ -47,49 +60,53 @@ public class SocketInitator implements Runnable {
         return socketChannel.isConnected();
     }
 
-    public boolean writeToEndpoint() throws IOException {
-        byteBuffer.put(message.getBytes());
-        byteBuffer.flip();
-        socketChannel.write(byteBuffer);
-        byteBuffer.clear();
+    public boolean writeToEndpoint()  {
+        writeBuffer.put(message.getBytes());
+        writeBuffer.flip();
+        try {
+            socketChannel.write(writeBuffer);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+        writeBuffer.clear();
         return true;
     }
 
     public String blockingReadFromEndpoint() throws IOException {
-        boolean waiting = true;
+        long requestStartTime = System.currentTimeMillis();
+        System.out.println(requestStartTime);
+        readBuffer.clear();
+
         while (waiting){
-            int byteRead = socketChannel.read(byteBuffer);
-            if (byteRead > 0){
+
+            int bytesRead = socketChannel.read(readBuffer);
+            if (bytesRead > 0){
                 waiting = false;
-                return "loggedOn"; // for now
+                return decodeMessage(readBuffer);
+            } else if ((System.currentTimeMillis() - requestStartTime) > 5000){ // break after 5 seconds
+                System.out.println(" TIME BREACH :" + (System.currentTimeMillis() - requestStartTime));
+                System.out.println(" current Time :" + (System.currentTimeMillis()));
+                System.out.println(" requestStartTime :" + (requestStartTime));
+                //breaks out of loop
+                waiting = false;
+                break;
             }
-            //block until response - what if no response ? dead lock?
+
         }
-            return "failed to logon ";
+        System.out.println("failed to read from endpoint");
+        return "failed to to read from endpoint ";
     }
 
-    public boolean sendAction(){
-        return false;
+    private String decodeMessage(ByteBuffer byteBuffer) {
+        byteBuffer.flip();
+        return new String(byteBuffer.array()).trim();
     }
 
-    public String getMessage() {
-        return message;
-    }
 
     public void setMessage(String message) {
         this.message = message;
     }
 
-    public String getResponse() {
-        return response;
-    }
 
-    public void setResponse(String response) {
-        this.response = response;
-    }
-
-    public void StartThread(){
-        Thread t = new Thread(this);
-        t.start();
-    }
 }
