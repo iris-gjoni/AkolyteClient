@@ -20,6 +20,7 @@ public class SocketInitator implements Callable<String> {
     boolean waiting = true;
 
     public SocketInitator()  {
+
     }
 
     @Override
