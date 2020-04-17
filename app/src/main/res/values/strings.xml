@@ -17,4 +17,30 @@
     <string name="enter_amount">enter amount</string>
     <string name="pay_now">Pay Now</string>
     <string name="make_a_payment">make a payment</string>
+    <string name="chose_a_username">Chose a Username</string>
+    <string name="select_your_game">Select your Game</string>
+    <string name="confirm_password">confirm Password</string>
+    <string name="create_new_user_account">Create New User Account</string>
+    <string name="select_your_favorite_game">Select your favorite game</string>
+    <string name="select_your_console_type">select your console type</string>
+    <string name="username">Username</string>
+    <string name="Akolyte">Akolyte</string>
+
+    <!--    <string name="gameGroup">GameGroup</string>-->
+
+    <string-array name="gameGroup2">
+        <item>Call of Duty</item>
+        <item>FIFA</item>
+        <item>World of Warcraft</item>
+        <item>Minecraft</item>
+        <item>League of Legends</item>
+    </string-array>
+
+    <string-array name="platformGroup">
+        <item>PlayStation 4</item>
+        <item>Xbox one</item>
+        <item>PC</item>
+    </string-array>
+
+
 </resources>

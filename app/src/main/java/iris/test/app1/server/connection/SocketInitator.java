@@ -9,18 +9,22 @@ import java.util.concurrent.Callable;
 
 public class SocketInitator implements Callable<String> {
 
-    private final String host = "192.168.0.8";
-    private final int port = 1001;
+    private String host = "192.168.0.8";
+    private int port = 1001;
     private SocketChannel socketChannel;
     private final ByteBuffer writeBuffer = ByteBuffer.allocate(1024);
     private final ByteBuffer readBuffer = ByteBuffer.allocate(1024);
-    public String message = "";
-    public String response = "";
+    private String message = "";
 
-    boolean waiting = true;
+    private boolean waiting = true;
 
     public SocketInitator()  {
 
+    }
+
+    public SocketInitator(final String host, final int port)  {
+        this.host = host;
+        this.port = port;
     }
 
     @Override
@@ -28,7 +32,7 @@ public class SocketInitator implements Callable<String> {
         try {
             if (connect()) {
                 writeToEndpoint();
-                this.response = blockingReadFromEndpoint();
+                String response = blockingReadFromEndpoint();
                 disconnect();
                 return response;
             }
@@ -80,15 +84,11 @@ public class SocketInitator implements Callable<String> {
         readBuffer.clear();
 
         while (waiting){
-
             int bytesRead = socketChannel.read(readBuffer);
             if (bytesRead > 0){
                 waiting = false;
                 return decodeMessage(readBuffer);
             } else if ((System.currentTimeMillis() - requestStartTime) > 5000){ // break after 5 seconds
-                System.out.println(" TIME BREACH :" + (System.currentTimeMillis() - requestStartTime));
-                System.out.println(" current Time :" + (System.currentTimeMillis()));
-                System.out.println(" requestStartTime :" + (requestStartTime));
                 //breaks out of loop
                 waiting = false;
                 break;

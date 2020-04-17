@@ -14,13 +14,13 @@ import java.util.concurrent.Future;
 public class LoginDataSource {
 
     public static final String logonMsgType = "RQ1";
-    private SocketInitator socketInitator;
+    private SocketInitator socketInitator = new SocketInitator(); ;
     private ExecutorService executor = Executors.newSingleThreadExecutor();
 
     public Result<LoggedInUser> login(String username, String password) {
 
         try {
-            socketInitator = new SocketInitator(); // new one each time?
+            // new one each time?
             final boolean login = VerifyLogin(username, password);
             System.out.println("loged in = " + login);
             // TODO: handle loggedInUser authentication

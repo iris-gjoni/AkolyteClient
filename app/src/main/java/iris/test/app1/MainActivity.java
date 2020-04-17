@@ -18,18 +18,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loginScreen(View view){
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, NewLoginActivity.class);
         startActivity(i);
     }
 
     public void createAccountScreen(View v){
-
+        Intent i = new Intent(this, CreateAccountActivity.class);
+        startActivity(i);
     }
 
 
     public void paymentScreen(View v){
         Intent i = new Intent(this, PaymentScreen.class);
         startActivity(i);
+    }
+
+    public void RegisterTrainerInterest(){
+
     }
 
 }
