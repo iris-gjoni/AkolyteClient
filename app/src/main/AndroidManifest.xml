@@ -11,13 +11,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".NewLoginActivity"></activity>
+        <activity android:name=".NewLoginActivity"/>
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".payment.PaymentDetails" />
         <activity android:name=".payment.PaymentScreen" />
-        <activity
-            android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login" />
+
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import java.util.concurrent.ExecutionException;
@@ -28,6 +29,8 @@ public class CreateAccountActivity extends AppCompatActivity {
     private EditText confPass;
     private EditText user;
 
+    private Button btnCreateAccount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +53,12 @@ public class CreateAccountActivity extends AppCompatActivity {
         pass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
         confPass.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
 
-        pass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                MatchingPasswords();
-            }
-        });
+//        pass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                MatchingPasswords();
+//            }
+//        });
 
     }
 

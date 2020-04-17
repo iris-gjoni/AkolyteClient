@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import iris.test.app1.payment.PaymentScreen;
-import iris.test.app1.ui.login.LoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 

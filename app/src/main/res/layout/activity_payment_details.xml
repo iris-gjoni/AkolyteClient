@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".payment.PaymentDetails"
-    android:background="@drawable/background4">
+    android:background="@drawable/background4"
+    tools:context=".payment.PaymentDetails">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -13,32 +13,31 @@
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:orientation="vertical"
         android:gravity="center_horizontal"
-        >
+        android:orientation="vertical">
 
         <TextView
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"
             android:id="@+id/txtId"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"
             android:id="@+id/txtAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
         <TextView
-            android:textSize="18sp"
-            android:layout_marginTop="20dp"
             android:id="@+id/txtStatus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="18sp"
             android:textStyle="bold" />
 
     </LinearLayout>
